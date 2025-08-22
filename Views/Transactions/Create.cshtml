@@ -1,0 +1,61 @@
+﻿@model Project.Models.Transaction
+
+@{
+    ViewData["Title"] = "Buat Transaksi";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">🔄 Buat Transaksi</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="SupplierId" class="form-label fw-bold">Supplier</label>
+                    <select asp-for="SupplierId" class="form-select" asp-items="ViewBag.SupplierId">
+                        <option value="">-- Pilih Supplier --</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ProductId" class="form-label fw-bold">Produk</label>
+                    <select asp-for="ProductId" class="form-select" asp-items="ViewBag.ProductId">
+                        <option value="">-- Pilih Produk --</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="QtyIn" class="form-label fw-bold">Jumlah Masuk</label>
+                    <input asp-for="QtyIn" class="form-control" />
+                    <small class="form-text text-muted">Isi jika ada barang masuk.</small>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="QtyOut" class="form-label fw-bold">Jumlah Keluar</label>
+                    <input asp-for="QtyOut" class="form-control" />
+                    <small class="form-text text-muted">Isi jika ada barang keluar.</small>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Date" class="form-label fw-bold">Tanggal</label>
+                    <input asp-for="Date" class="form-control" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-success">💾 Simpan</button>
+                    <a asp-action="Index" class="btn btn-secondary">↩️ Kembali</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

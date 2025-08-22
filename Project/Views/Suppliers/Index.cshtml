@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Project.Models.Supplier>
+
+@{
+    ViewData["Title"] = "Daftar Supplier";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">📋 Daftar Supplier</h4>
+            <a asp-action="Create" class="btn btn-success btn-sm">+ Tambah Supplier</a>
+        </div>
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info">Belum ada supplier yang terdaftar.</div>
+            }
+            else
+            {
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nama</th>
+                            <th>Kontak</th>
+                            <th style="width: 200px;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Contact</td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm me-1">🔍 Detail</a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm me-1">✏️ Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">🗑️ Hapus</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>

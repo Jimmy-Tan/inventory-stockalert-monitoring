@@ -1,0 +1,84 @@
+﻿@using Project.Models
+@model IEnumerable<Dashboard>
+
+@{
+    ViewData["Title"] = "Dashboard";
+    var lowStock = ViewBag.LowStockProducts as List<Product>;
+}
+
+<div class="container-fluid">
+    <h1 class="mb-4">📊 Dashboard</h1>
+
+    @* ===== TOAST NOTIFIKASI ===== *@
+    @if (lowStock != null && lowStock.Any())
+    {
+        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100;">
+
+            <div class="toast align-items-center text-bg-warning border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        ⚠️ Ada <strong>@lowStock.Count</strong> produk dengan stok rendah! Silakan cek dan lakukan restock.
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    }
+
+    @* ===== KOTAK PERINGATAN STOK RENDAH ===== *@
+    @if (lowStock != null && lowStock.Any())
+    {
+        <div class="alert alert-warning shadow-sm">
+            <h4 class="alert-heading">⚠️ Peringatan Stok Rendah</h4>
+            <ul class="mb-0">
+                @foreach (var item in lowStock)
+                {
+                    var firstSupplier = item.SupplierProducts?.FirstOrDefault()?.Supplier;
+                    <li>
+                        <strong>@item.Name</strong> (Sisa: @item.Quantity / Min: @item.MinimumStock)
+                        @if (firstSupplier != null)
+                        {
+                            <a asp-controller="Suppliers" asp-action="Details" asp-route-id="@firstSupplier.Id" class="btn btn-sm btn-outline-primary ms-2">Restock</a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Tidak ada supplier terdaftar</span>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-success shadow-sm">
+            🎉 Semua stok aman. Tidak ada produk dengan stok rendah.
+        </div>
+    }
+
+    @* ===== RIWAYAT BARANG MASUK ===== *@
+    <h2 class="mt-5 mb-3">📦 Riwayat Barang Masuk Terbaru</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>Supplier</th>
+                    <th>Produk</th>
+                    <th>Qty Masuk</th>
+                    <th>Tanggal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.SupplierName</td>
+                        <td>@item.ProductName</td>
+                        <td>@item.QtyIn</td>
+                        <td>@item.Date.ToString("yyyy-MM-dd HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

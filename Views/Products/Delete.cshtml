@@ -1,0 +1,37 @@
+﻿@model Project.Models.Product
+
+@{
+    ViewData["Title"] = "Hapus Produk";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">🗑️ Hapus Produk</h4>
+        </div>
+        <div class="card-body">
+            <h5 class="text-danger fw-semibold mb-4">Apakah Anda yakin ingin menghapus produk ini?</h5>
+
+            <dl class="row">
+                <dt class="col-sm-3">Nama Produk</dt>
+                <dd class="col-sm-9">@Model.Name</dd>
+
+                <dt class="col-sm-3">Kategori</dt>
+                <dd class="col-sm-9">@Model.Category?.Name</dd>
+
+                <dt class="col-sm-3">Stok Tersedia</dt>
+                <dd class="col-sm-9">@Model.Quantity</dd>
+
+                <dt class="col-sm-3">Stok Minimum</dt>
+                <dd class="col-sm-9">@Model.MinimumStock</dd>
+            </dl>
+
+            <form asp-action="Delete" class="mt-4">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger fw-bold me-2">✅ Ya, Hapus</button>
+                <a asp-action="Index" class="btn btn-secondary fw-semibold">❌ Batal</a>
+            </form>
+        </div>
+    </div>
+</div>

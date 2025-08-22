@@ -1,0 +1,26 @@
+﻿@model Project.Models.SupplierProduct
+
+@{
+    ViewData["Title"] = "Tambah Produk ke Supplier";
+}
+
+<h2>Tambah Produk ke Supplier: @ViewBag.SupplierName</h2>
+
+<form asp-action="AddProduct" method="post">
+    <input type="hidden" asp-for="SupplierId" />
+
+    <div class="form-group">
+        <label asp-for="ProductId" class="control-label"></label>
+        <select asp-for="ProductId" class="form-control" asp-items="ViewBag.Products"></select>
+        <span asp-validation-for="ProductId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Tambah</button>
+    <a asp-action="Details" asp-route-id="@Model.SupplierId" class="btn btn-secondary">Batal</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

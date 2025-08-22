@@ -1,0 +1,36 @@
+﻿@model Project.Models.Supplier
+
+@{
+    ViewData["Title"] = "Hapus Supplier";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">🗑️ Konfirmasi Hapus Supplier</h4>
+        </div>
+        <div class="card-body">
+            <p class="text-danger fw-semibold mb-4">
+                Apakah Anda yakin ingin menghapus supplier berikut? Tindakan ini tidak dapat dibatalkan.
+            </p>
+
+            <dl class="row">
+                <dt class="col-sm-3">Nama Supplier</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+                <dt class="col-sm-3">Kontak</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Contact)</dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-secondary">← Batal</a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Hapus Permanen
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

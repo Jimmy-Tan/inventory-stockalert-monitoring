@@ -1,0 +1,26 @@
+﻿@model Project.Models.SupplierProduct
+
+@{
+    ViewData["Title"] = "Hapus Produk dari Supplier";
+}
+
+<h1>Hapus Produk dari Supplier</h1>
+
+<p>Yakin ingin menghapus produk ini dari daftar supply?</p>
+
+<table class="table">
+    <tr>
+        <th>Supplier</th>
+        <td>@(Model.Supplier?.Name ?? "N/A")</td>
+    </tr>
+    <tr>
+        <th>Produk</th>
+        <td>@(Model.Product?.Name ?? "N/A")</td>
+    </tr>
+</table>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Hapus</button>
+    <a asp-controller="Suppliers" asp-action="Details" asp-route-id="@Model.SupplierId" class="btn btn-secondary">Batal</a>
+</form>

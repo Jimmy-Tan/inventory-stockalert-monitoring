@@ -1,0 +1,60 @@
+﻿@model Project.Models.Transaction
+
+@{
+    ViewData["Title"] = "Barang Keluar";
+}
+
+<h1>Transaksi Barang Keluar</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-5">
+
+        <!-- FORM PILIH SUPPLIER -->
+        <form method="get" asp-action="CreateBarangKeluar">
+            <div class="form-group">
+                <label for="SupplierId">Pilih Supplier</label>
+                <select name="supplierId" class="form-control" asp-items="ViewBag.SupplierId" onchange="this.form.submit()">
+                    <option value="">-- Pilih Supplier --</option>
+                </select>
+            </div>
+        </form>
+
+        @* Kalau supplier sudah dipilih, tampilkan form barang keluar *@
+        @if (ViewBag.ProductId != null && ((SelectList)ViewBag.ProductId).Any())
+        {
+            <form asp-action="CreateBarangKeluar" method="post">
+                <input type="hidden" name="SupplierId" value="@ViewBag.SelectedSupplierId" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="ProductId">Pilih Produk</label>
+                    <select asp-for="ProductId" class="form-control" asp-items="ViewBag.ProductId">
+                        <option value="">-- Pilih Produk --</option>
+                    </select>
+                    <span asp-validation-for="ProductId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="QtyOut">Jumlah Barang Keluar</label>
+                    <input asp-for="QtyOut" class="form-control" min="1" />
+                    <span asp-validation-for="QtyOut" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                <a asp-action="Index" class="btn btn-secondary">Kembali ke Daftar Transaksi</a>
+            </form>
+        }
+        else if (ViewBag.SelectedSupplierId != null)
+        {
+            <p><em>Supplier ini belum punya produk.</em></p>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

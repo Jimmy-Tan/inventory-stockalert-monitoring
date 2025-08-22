@@ -1,0 +1,41 @@
+﻿@model Project.Models.Transaction
+
+@{
+    ViewData["Title"] = "Hapus Transaksi";
+}
+
+<div class="container mt-4">
+    <div class="card border-danger shadow-sm">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">🗑️ Hapus Transaksi</h4>
+        </div>
+        <div class="card-body">
+            <p class="text-danger fw-bold">Yakin ingin menghapus transaksi ini? Tindakan ini tidak dapat dibatalkan.</p>
+
+            <dl class="row">
+                <dt class="col-sm-4">🚚 Supplier</dt>
+                <dd class="col-sm-8">@Model.Supplier?.Name</dd>
+
+                <dt class="col-sm-4">📦 Produk</dt>
+                <dd class="col-sm-8">@Model.Product?.Name</dd>
+
+                <dt class="col-sm-4">📥 Qty Masuk</dt>
+                <dd class="col-sm-8">@Model.QtyIn</dd>
+
+                <dt class="col-sm-4">📤 Qty Keluar</dt>
+                <dd class="col-sm-8">@Model.QtyOut</dd>
+
+                <dt class="col-sm-4">🕒 Tanggal</dt>
+                <dd class="col-sm-8">@Model.Date.ToString("yyyy-MM-dd HH:mm")</dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">← Batal</a>
+                    <button type="submit" class="btn btn-danger">🗑️ Hapus Transaksi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+﻿@model Project.Models.Supplier
+
+@{
+    ViewData["Title"] = "Detail Supplier";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">📄 Detail Supplier</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Nama</dt>
+                <dd class="col-sm-9">@Model.Name</dd>
+
+                <dt class="col-sm-3">Kontak</dt>
+                <dd class="col-sm-9">@Model.Contact</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <span>📦 Produk yang Disupply</span>
+            <a asp-controller="SupplierProducts" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-sm btn-light">
+                + Tambah Produk
+            </a>
+        </div>
+        <div class="card-body">
+            @if (Model.SupplierProducts.Any())
+            {
+                <table class="table table-striped table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nama Produk</th>
+                            <th style="width: 80px;">Hapus</th>
+                            <th style="width: 200px;">Qty Masuk</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SupplierProducts)
+                        {
+                            <tr>
+                                <td>@item.Product?.Name</td>
+                                <td>
+                                    <a asp-controller="SupplierProducts" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                                        🗑️
+                                    </a>
+                                </td>
+                                <td>
+                                    <form asp-controller="Transactions" asp-action="CreateInline" method="post" class="d-flex gap-2">
+                                        <input type="hidden" name="SupplierId" value="@Model.Id" />
+                                        <input type="hidden" name="ProductId" value="@item.ProductId" />
+                                        <input type="number" name="QtyIn" min="1" class="form-control form-control-sm w-50" placeholder="Qty" />
+                                        <button type="submit" class="btn btn-success btn-sm">+ Tambah</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-info">📭 Belum ada produk untuk supplier ini.</div>
+            }
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-secondary">← Kembali ke Daftar Supplier</a>
+    </div>
+</div>

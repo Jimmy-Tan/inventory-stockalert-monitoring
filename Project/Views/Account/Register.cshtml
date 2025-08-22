@@ -1,0 +1,81 @@
+﻿@model Project.Models.User
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Daftar - ProjectUAS</title>
+    <style>
+        body {
+            font-family: 'Segoe UI';
+            background: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .register-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #28a745;
+            color: white;
+            border: none;
+            margin-top: 20px;
+            border-radius: 6px;
+        }
+
+        .links {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+            .links a {
+                text-decoration: none;
+                color: #007bff;
+            }
+    </style>
+</head>
+<body>
+    <div class="register-box">
+        <h2>Daftar Akun</h2>
+        <form asp-action="Register" method="post">
+            <label>Username:</label>
+            <input asp-for="Username" required />
+
+            <label>Password:</label>
+            <input asp-for="Password" type="password" required />
+
+            <button type="submit">Daftar</button>
+        </form>
+        <div class="links">
+            <a asp-action="Login" asp-controller="Account">Sudah punya akun? Login</a>
+        </div>
+    </div>
+</body>
+</html>

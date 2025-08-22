@@ -1,0 +1,32 @@
+﻿@model Project.Models.Transaction
+
+@{
+    ViewData["Title"] = "Detail Transaksi";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">📝 Detail Transaksi</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-4">Supplier</dt>
+                <dd class="col-sm-8">@Model.Supplier?.Name ?? "<em>Data tidak tersedia</em>"</dd>
+
+                <dt class="col-sm-4">Produk</dt>
+                <dd class="col-sm-8">@Model.Product?.Name ?? "<em>Data tidak tersedia</em>"</dd>
+
+                <dt class="col-sm-4">Qty Masuk</dt>
+                <dd class="col-sm-8">@Model.QtyIn</dd>
+
+                <dt class="col-sm-4">Qty Keluar</dt>
+                <dd class="col-sm-8">@Model.QtyOut</dd>
+
+                <dt class="col-sm-4">Tanggal</dt>
+                <dd class="col-sm-8">@Model.Date.ToString("dddd, dd MMMM yyyy HH:mm")</dd>
+            </dl>
+            <a asp-action="Index" class="btn btn-secondary">← Kembali ke Riwayat</a>
+        </div>
+    </div>
+</div>
