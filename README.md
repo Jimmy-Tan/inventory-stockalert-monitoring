@@ -41,6 +41,7 @@ Project/
 2. Buka file Project.sln dengan Visual Studio.
 
 3. Jalankan perintah migrasi (opsional, jika database belum ada):
-Update-Database
+   ```bash
+   Update-Database
 
 5. Tekan F5 atau Ctrl+F5 untuk menjalankan aplikasi.
